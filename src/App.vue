@@ -1,16 +1,13 @@
 <script setup></script>
 
 <template>
-  <main class="d-flex flex-column">
-    <header class="">
-      <h1 class="text-red">To do app</h1>
+  <main class="d-flex flex-column text-primary">
+    <header class="fixed-top text-center mt-2">
+      <h1 class="text-red">TO-DO LIST</h1>
     </header>
-    <section>
-      <div class="inputWrapper">
-        <input type="text" placeholder="New Task" />
-        <button>ADD</button>
-      </div>
+    <section class="container-fluid m-auto">
+      <input type="text" placeholder="New Task" />
+      <button>ADD</button>
     </section>
   </main>
 </template>
-
