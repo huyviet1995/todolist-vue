@@ -1,14 +1,16 @@
 <template>
   <section class="px-4 bg-white w-100 py-3">
-    <ul class="pl-0">
+    <ul v-if="todoItems.length > 0" class="pl-0">
       <todo-item
         v-for="item in todoItems"
         :label="item.label"
         :isCompleted="item.isCompleted"
+        :id="item.id"
         :key="item.label"
       >
       </todo-item>
     </ul>
+    <div v-else>No todos to show</div>
   </section>
 </template>
 
