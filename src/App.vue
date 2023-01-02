@@ -7,14 +7,14 @@
     </header>
     <section class="m-auto bg-red d-flex align-items-center flex-column">
       <div class="row w-100 m-3">
-        <div class="col-sm-9 px-0">
+        <div class="col-sm-10 px-0">
           <input
             class="py-2 px-2 h-100 w-100"
             type="text"
             placeholder="New Task"
           />
         </div>
-        <div class="col-sm-3 px-0">
+        <div class="col-sm-2 px-0">
           <button class="btn btn-primary ml-1 py-2 h-100 w-100">ADD</button>
         </div>
       </div>

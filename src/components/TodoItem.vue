@@ -10,4 +10,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+li {
+  text-decoration: none;
+  list-style-type: none;
+}
+</style>

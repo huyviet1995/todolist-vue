@@ -1,6 +1,6 @@
 <template>
-  <section class="px-2 bg-white w-100">
-    <ul>
+  <section class="px-2 bg-white w-100 py-3">
+    <ul class="pl-0">
       <todo-item
         v-for="item in todoItems"
         :label="item.label"
@@ -29,4 +29,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: medium;
+}
+</style>
