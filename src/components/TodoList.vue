@@ -13,15 +13,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import TodoItem from "./TodoItem.vue";
 export default {
   components: {
     TodoItem,
   },
   computed: {
-    todoItems() {
-      return this.$store.getters.todoItems;
-    },
+    ...mapGetters(["todoItems"]),
   },
 };
 </script>
