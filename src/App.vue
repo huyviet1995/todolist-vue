@@ -17,5 +17,15 @@
         <button class="btn btn-primary ml-1 py-2 h-100">ADD</button>
       </div>
     </section>
+    <section>
+      <todo-list></todo-list>
+    </section>
   </main>
 </template>
+
+<script>
+import TodoList from "./components/TodoList.vue";
+export default {
+  components: { TodoList },
+};
+</script>
