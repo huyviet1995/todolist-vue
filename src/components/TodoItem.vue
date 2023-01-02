@@ -1,6 +1,11 @@
 <template>
   <li :class="{ completed: isCompleted }">
-    <input type="checkbox" class="mr-2" :checked="isCompleted" />
+    <input
+      type="checkbox"
+      class="mr-2"
+      :checked="isCompleted"
+      @click="onCheck"
+    />
     {{ label }}
     <span class="icon-remove" @click="deleteTodo">X</span>
   </li>
@@ -12,6 +17,9 @@ export default {
   methods: {
     deleteTodo() {
       this.$store.dispatch("deleteTodo", this.id);
+    },
+    onCheck() {
+      this.$store.dispatch("toggleMarkAsCompleted", this.id);
     },
   },
 };

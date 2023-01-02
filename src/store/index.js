@@ -17,6 +17,14 @@ const store = createStore({
     deleteTodo(state, todoId) {
       state.todos = state.todos.filter((todo) => todo.id !== todoId);
     },
+    toggleMarkAsCompleted(state, todoId) {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === todoId) {
+          todo.isCompleted = !todo.isCompleted;
+        }
+        return todo;
+      });
+    },
   },
   actions: {
     addTodo(context, data) {
@@ -24,6 +32,9 @@ const store = createStore({
     },
     deleteTodo(context, todoId) {
       context.commit("deleteTodo", todoId);
+    },
+    toggleMarkAsCompleted(context, todoId) {
+      context.commit("toggleMarkAsCompleted", todoId);
     },
   },
   getters: {
