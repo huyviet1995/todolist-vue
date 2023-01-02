@@ -1,7 +1,7 @@
 <template>
   <li>
-    <input type="checkbox" class="mr-2" />
-    {{ label }} <span>{{ isCompleted }}</span>
+    <input type="checkbox" class="mr-2" :checked="isCompleted" />
+    {{ label }}
   </li>
 </template>
 

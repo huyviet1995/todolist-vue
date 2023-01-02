@@ -18,8 +18,8 @@ export default {
   data() {
     return {
       todoItems: [
-        { label: "Add Item 1", isCompleted: false },
-        { label: "Add item 2", isCompleted: false },
+        { label: "Add Item 1", isCompleted: true },
+        { label: "Add item 2", isCompleted: true },
       ],
     };
   },
