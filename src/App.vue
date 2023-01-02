@@ -1,15 +1,26 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
-  <header>
-    <h1>To do app</h1>
-  </header>
+  <main>
+    <header>
+      <h1>To do app</h1>
+    </header>
+    <section>
+      <div class="inputWrapper">
+        <input type="text" placeholder="New Task" />
+        <button>ADD</button>
+      </div>
+    </section>
+  </main>
 </template>
 
 <style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+}
 header {
   line-height: 1.5;
-  max-height: 100vh;
+  width: 100%;
 }
 </style>
