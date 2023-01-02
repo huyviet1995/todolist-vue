@@ -1,5 +1,6 @@
 <template>
   <li>
+    <input type="checkbox" class="mr-2" />
     {{ label }} <span>{{ isCompleted }}</span>
   </li>
 </template>
@@ -14,5 +15,9 @@ export default {
 li {
   text-decoration: none;
   list-style-type: none;
+  border-bottom: 1px solid black;
+}
+input[type="checkbox"] {
+  transform: scale(1.3);
 }
 </style>

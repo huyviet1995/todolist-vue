@@ -1,5 +1,5 @@
 <template>
-  <section class="px-2 bg-white w-100 py-3">
+  <section class="px-4 bg-white w-100 py-3">
     <ul class="pl-0">
       <todo-item
         v-for="item in todoItems"
