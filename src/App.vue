@@ -12,10 +12,16 @@
             class="py-2 px-2 h-100 w-100"
             type="text"
             placeholder="New Task"
+            v-model.trim="inputValue"
           />
         </div>
         <div class="col-sm-2 px-0">
-          <button class="btn btn-primary ml-1 py-2 h-100 w-100">ADD</button>
+          <button
+            @click="addTodo"
+            class="btn btn-primary ml-1 py-2 h-100 w-100"
+          >
+            ADD
+          </button>
         </div>
       </div>
       <todo-list></todo-list>
@@ -27,5 +33,13 @@
 import TodoList from "./components/TodoList.vue";
 export default {
   components: { TodoList },
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
+  methods: {
+    addTodo() {}
+  }
 };
 </script>

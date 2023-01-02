@@ -15,16 +15,13 @@
 <script>
 import TodoItem from "./TodoItem.vue";
 export default {
-  data() {
-    return {
-      todoItems: [
-        { label: "Add Item 1", isCompleted: false },
-        { label: "Add item 2", isCompleted: true },
-      ],
-    };
-  },
   components: {
     TodoItem,
+  },
+  computed: {
+    todoItems() {
+      return this.$store.getters.todoItems;
+    },
   },
 };
 </script>
