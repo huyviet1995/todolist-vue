@@ -1,14 +1,15 @@
 <template>
-  The Todo List templates here
-  <ul>
-    <todo-item
-      v-for="item in todoItems"
-      :label="item.label"
-      :isCompleted="item.isCompleted"
-      :key="item.label"
-    >
-    </todo-item>
-  </ul>
+  <section class="px-2 bg-white w-100">
+    <ul>
+      <todo-item
+        v-for="item in todoItems"
+        :label="item.label"
+        :isCompleted="item.isCompleted"
+        :key="item.label"
+      >
+      </todo-item>
+    </ul>
+  </section>
 </template>
 
 <script>

@@ -5,19 +5,19 @@
     <header class="text-center mb-4">
       <h1 class="text-white">TO-DO LIST</h1>
     </header>
-    <section
-      class="container-fluid m-auto bg-red w-100 d-flex align-items-center justify-content-center"
-    >
-      <div class="row m-auto">
-        <input
-          class="py-2 px-2 h-100 w-40"
-          type="text"
-          placeholder="New Task"
-        />
-        <button class="btn btn-primary ml-1 py-2 h-100">ADD</button>
+    <section class="m-auto bg-red d-flex align-items-center flex-column">
+      <div class="row w-100 m-3">
+        <div class="col-sm-9 px-0">
+          <input
+            class="py-2 px-2 h-100 w-100"
+            type="text"
+            placeholder="New Task"
+          />
+        </div>
+        <div class="col-sm-3 px-0">
+          <button class="btn btn-primary ml-1 py-2 h-100 w-100">ADD</button>
+        </div>
       </div>
-    </section>
-    <section>
       <todo-list></todo-list>
     </section>
   </main>
