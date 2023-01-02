@@ -20,7 +20,7 @@ const store = createStore({
   },
   actions: {
     addTodo(context, data) {
-      context.commit("addTodo", data);
+      context.commit("addTodo", { ...data, id: Math.random() * 100 });
     },
     deleteTodo(context, todoId) {
       context.commit("deleteTodo", todoId);

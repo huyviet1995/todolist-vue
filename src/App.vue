@@ -39,7 +39,14 @@ export default {
     };
   },
   methods: {
-    addTodo() {}
-  }
+    addTodo() {
+      this.$store.dispatch("addTodo", {
+        label: this.inputValue,
+        isCompleted: false,
+      });
+      // Reset the input value
+      this.inputValue = "";
+    },
+  },
 };
 </script>
