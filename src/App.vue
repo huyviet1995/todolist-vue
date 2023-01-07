@@ -5,7 +5,9 @@
     <header class="text-center mb-4">
       <h1 class="text-white">TO-DO LIST</h1>
     </header>
-    <section class="m-auto bg-red d-flex align-items-center flex-column">
+    <section
+      class="main-container m-auto bg-red d-flex align-items-center flex-column"
+    >
       <div class="row w-100 m-3">
         <div class="col-sm-10 px-0">
           <input
@@ -50,3 +52,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.main-container {
+  max-width: 340px;
+}
+</style>

@@ -20,11 +20,6 @@
           src="./icons/edit-button.svg"
           alt="button-edit"
         />
-        <img
-          @click="deleteTodo"
-          src="./icons/cancel-button.svg"
-          alt="cancel-button"
-        />
       </template>
       <template v-else>
         <img
@@ -32,8 +27,12 @@
           src="./icons/save-button.svg"
           alt="save-button"
         />
-        <img src="./icons/cancel-button.svg" alt="cancel-button" />
       </template>
+      <img
+        @click="deleteTodo"
+        src="./icons/cancel-button.svg"
+        alt="cancel-button"
+      />
     </div>
   </li>
 </template>
