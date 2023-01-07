@@ -63,6 +63,7 @@ input[type="checkbox"] {
 input[type="text"] {
   width: 60%;
   height: 24px;
+  padding-left: 5px;
 }
 
 .completed {
