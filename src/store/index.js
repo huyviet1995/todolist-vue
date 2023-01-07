@@ -25,6 +25,18 @@ const store = createStore({
         return todo;
       });
     },
+    editTodo(state, payload) {
+      const { id, label } = payload;
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            label,
+          };
+        }
+        return todo;
+      });
+    },
   },
   actions: {
     addTodo(context, data) {
@@ -35,6 +47,13 @@ const store = createStore({
     },
     toggleMarkAsCompleted(context, todoId) {
       context.commit("toggleMarkAsCompleted", todoId);
+    },
+    editTodo(context, data) {
+      const { id, label } = data;
+      context.commit("editTodo", {
+        id,
+        label,
+      });
     },
   },
   getters: {

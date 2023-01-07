@@ -27,7 +27,11 @@
         />
       </template>
       <template v-else>
-        <img src="./icons/save-button.svg" alt="save-button" />
+        <img
+          @click="handleSave()"
+          src="./icons/save-button.svg"
+          alt="save-button"
+        />
         <img src="./icons/cancel-button.svg" alt="cancel-button" />
       </template>
     </div>
@@ -43,6 +47,16 @@ export default {
   },
   props: ["label", "isCompleted", "id"],
   methods: {
+    handleSave() {
+      this.$store.dispatch("editTodo", {
+        id: this.id,
+        label: this.todoLabel,
+      });
+      this.editMode = false;
+      if (this.todoLabel.trim() === "") {
+        this.deleteTodo();
+      }
+    },
     handleReset() {
       this.todoLabel = this.label;
     },
