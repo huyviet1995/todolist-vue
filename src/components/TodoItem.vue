@@ -13,15 +13,22 @@
       <input type="text" class="form-control" :value="label" />
     </span>
     <div class="buttons-container">
-      <span v-if="!editMode">
+      <template v-if="!editMode">
         <img
           @click="handleEdit"
-          class="button-edit"
           src="./icons/edit-button.svg"
-          alt=""
+          alt="button-edit"
         />
-      </span>
-      <span class="icon-remove" @click="deleteTodo">X</span>
+        <img
+          @click="deleteTodo"
+          src="./icons/cancel-button.svg"
+          alt="cancel-button"
+        />
+      </template>
+      <template v-else>
+        <img src="./icons/save-button.svg" alt="save-button" />
+        <img src="./icons/cancel-button.svg" alt="cancel-button" />
+      </template>
     </div>
   </li>
 </template>
@@ -76,15 +83,11 @@ input[type="text"] {
   gap: 10px;
   margin-left: auto;
 }
-.icon-remove {
-  opacity: 0.5;
+img {
+  opacity: 0.3;
   cursor: pointer;
-}
-
-.button-edit {
   width: 20px;
   height: 20px;
-  opacity: 0.3;
   margin-bottom: 3px;
 }
 </style>
