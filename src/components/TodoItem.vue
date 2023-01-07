@@ -9,9 +9,10 @@
     <span v-if="!editMode">
       {{ label }}
     </span>
-    <span v-else>
+    <form v-else>
       <input type="text" class="form-control" :value="label" />
-    </span>
+      <span class="btn-reset text-secondary">Reset</span>
+    </form>
     <div class="buttons-container">
       <template v-if="!editMode">
         <img
@@ -68,14 +69,38 @@ input[type="checkbox"] {
 }
 
 input[type="text"] {
-  width: 60%;
   height: 24px;
   padding-left: 5px;
+  margin-bottom: 5px;
 }
 
 .completed {
   text-decoration: line-through;
   color: red;
+}
+
+form {
+  width: 75%;
+  position: relative;
+}
+
+.btn-reset {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  right: 2px;
+  bottom: 3px;
+  height: 90%;
+  width: fit-content;
+  font-size: 12px;
+  opacity: 0.6;
+  line-height: 100%;
+  text-transform: uppercase;
+  margin-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
 }
 
 .buttons-container {
