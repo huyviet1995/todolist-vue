@@ -10,8 +10,8 @@
       {{ label }}
     </span>
     <form v-else>
-      <input type="text" class="form-control" :value="label" />
-      <span class="btn-reset text-secondary">Reset</span>
+      <input type="text" class="form-control" v-model="todoLabel" />
+      <span class="btn-reset text-secondary" @click="handleReset">Reset</span>
     </form>
     <div class="buttons-container">
       <template v-if="!editMode">
@@ -38,10 +38,14 @@ export default {
   data() {
     return {
       editMode: false,
+      todoLabel: "",
     };
   },
   props: ["label", "isCompleted", "id"],
   methods: {
+    handleReset() {
+      this.todoLabel = this.label;
+    },
     deleteTodo() {
       this.$store.dispatch("deleteTodo", this.id);
     },
@@ -50,6 +54,7 @@ export default {
     },
     handleEdit() {
       this.editMode = true;
+      this.todoLabel = this.label;
     },
   },
 };
