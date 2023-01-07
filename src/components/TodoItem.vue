@@ -7,12 +7,26 @@
       @click="onCheck"
     />
     {{ label }}
-    <span class="icon-remove" @click="deleteTodo">X</span>
+    <div class="buttons-container">
+      <span v-if="!editMode">
+        <img
+          @click="handleEdit"
+          class="button-edit"
+          src="./icons/edit-button.svg"
+          alt=""
+        />
+      </span>
+      <span class="icon-remove" @click="deleteTodo">X</span>
+    </div>
   </li>
 </template>
-
 <script>
 export default {
+  data() {
+    return {
+      editMode: false,
+    };
+  },
   props: ["label", "isCompleted", "id"],
   methods: {
     deleteTodo() {
@@ -20,6 +34,9 @@ export default {
     },
     onCheck() {
       this.$store.dispatch("toggleMarkAsCompleted", this.id);
+    },
+    handleEdit() {
+      this.editMode = true;
     },
   },
 };
@@ -41,10 +58,21 @@ input[type="checkbox"] {
   color: red;
 }
 
+.buttons-container {
+  position: absolute;
+  bottom: 3px;
+  display: flex;
+  gap: 10px;
+  right: 10px;
+}
 .icon-remove {
   opacity: 0.5;
-  position: absolute;
-  right: 10px;
   cursor: pointer;
+}
+
+.button-edit {
+  width: 20px;
+  height: 20px;
+  opacity: 0.3;
 }
 </style>
