@@ -6,7 +6,12 @@
       :checked="isCompleted"
       @click="onCheck"
     />
-    {{ label }}
+    <span v-if="!editMode">
+      {{ label }}
+    </span>
+    <span v-else>
+      <input type="text" class="form-control" :value="label" />
+    </span>
     <div class="buttons-container">
       <span v-if="!editMode">
         <img
@@ -49,21 +54,26 @@ li {
   border-bottom: 1px solid black;
   color: green;
   position: relative;
+  display: flex;
 }
 input[type="checkbox"] {
   transform: scale(1.3);
 }
+
+input[type="text"] {
+  width: 60%;
+  height: 24px;
+}
+
 .completed {
   text-decoration: line-through;
   color: red;
 }
 
 .buttons-container {
-  position: absolute;
-  bottom: 3px;
   display: flex;
   gap: 10px;
-  right: 10px;
+  margin-left: auto;
 }
 .icon-remove {
   opacity: 0.5;
@@ -74,5 +84,6 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
   opacity: 0.3;
+  margin-bottom: 3px;
 }
 </style>
