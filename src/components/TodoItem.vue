@@ -61,7 +61,12 @@ export default {
       this.todoLabel = this.label;
     },
     deleteTodo() {
-      this.$store.dispatch("deleteTodo", this.id);
+      const confirmDelete = confirm(
+        `Do you want to delete this item ${this.todoLabel}`
+      );
+      if (confirmDelete) {
+        this.$store.dispatch("deleteTodo", this.id);
+      }
     },
     onCheck() {
       this.$store.dispatch("toggleMarkAsCompleted", this.id);
