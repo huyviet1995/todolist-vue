@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 
 const METHOD_POST = "POST";
+const METHOD_PUT = "PUT";
 
 const store = createStore({
   state() {
@@ -70,8 +71,22 @@ const store = createStore({
     toggleMarkAsCompleted(context, todoId) {
       context.commit("toggleMarkAsCompleted", todoId);
     },
-    editTodo(context, data) {
+    async editTodo(context, data) {
       const { id, label } = data;
+      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${id}.json`;
+      const response = await fetch(url, {
+        method: METHOD_PUT,
+        body: JSON.stringify({
+          label,
+        }),
+      });
+      const responseData = await response.json();
+      if (!responseData.label) {
+        const error = new Error(
+          responseData.message || "Failed to send request"
+        );
+        throw error;
+      }
       context.commit("editTodo", {
         id,
         label,
