@@ -52,7 +52,12 @@ const store = createStore({
         };
         const url =
           "https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json";
-        const responseData = await sendRequest(url, METHOD_POST, requestBody);
+        const responseData = await sendRequest(
+          url,
+          METHOD_POST,
+          requestBody,
+          "Failed to add todo"
+        );
         requestBody.id = responseData.name;
         context.commit("addTodo", requestBody);
       } catch (e) {
@@ -64,7 +69,12 @@ const store = createStore({
       try {
         const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
         await sendRequest(url, METHOD_DELETE);
-        context.commit("deleteTodo", todoId);
+        context.commit(
+          "deleteTodo",
+          todoId,
+          undefined,
+          "Failed to delete the todo please try again"
+        );
       } catch (e) {
         console.error(e);
         throw e;
@@ -77,7 +87,12 @@ const store = createStore({
       try {
         const { id, label } = data;
         const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${id}.json`;
-        await sendRequest(url, METHOD_PUT);
+        await sendRequest(
+          url,
+          METHOD_PUT,
+          undefined,
+          "Failed to edit the todo"
+        );
         context.commit("editTodo", {
           id,
           label,
@@ -90,7 +105,12 @@ const store = createStore({
     async loadTodos(context) {
       const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json`;
       try {
-        const responseData = await sendRequest(url, METHOD_GET);
+        const responseData = await sendRequest(
+          url,
+          METHOD_GET,
+          undefined,
+          "Failed to load todo"
+        );
         context.commit(
           "loadTodos",
           Object.entries(responseData).map((todo) => ({
