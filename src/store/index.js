@@ -2,18 +2,19 @@ import { createStore } from "vuex";
 
 const METHOD_POST = "POST";
 const METHOD_PUT = "PUT";
+const METHOD_DELETE = "DELETE";
+const METHOD_GET = "GET";
 
 const store = createStore({
   state() {
     return {
-      todos: [
-        { id: "1", label: "Todo 1", isCompleted: false },
-        { id: "2", label: "Todo 2", isCompleted: false },
-        { id: "3", label: "Todo 3", isCompleted: false },
-      ],
+      todos: [],
     };
   },
   mutations: {
+    loadTodos(state, payload) {
+      state.todos = payload;
+    },
     addTodo(state, payload) {
       state.todos.push(payload);
     },
@@ -56,7 +57,7 @@ const store = createStore({
         }
       );
       const responseData = await response.json();
-      if (!responseData.name) {
+      if (!response.ok) {
         const error = new Error(
           responseData.message || "Failed to send request"
         );
@@ -65,7 +66,18 @@ const store = createStore({
       newRequest.id = responseData.name;
       context.commit("addTodo", newRequest);
     },
-    deleteTodo(context, todoId) {
+    async deleteTodo(context, todoId) {
+      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
+      const response = await fetch(url, {
+        method: METHOD_DELETE,
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        const error = new Error(
+          responseData.message || "Failed to delete the todo"
+        );
+        throw error;
+      }
       context.commit("deleteTodo", todoId);
     },
     toggleMarkAsCompleted(context, todoId) {
@@ -81,7 +93,7 @@ const store = createStore({
         }),
       });
       const responseData = await response.json();
-      if (!responseData.label) {
+      if (!response.ok) {
         const error = new Error(
           responseData.message || "Failed to send request"
         );
@@ -91,6 +103,27 @@ const store = createStore({
         id,
         label,
       });
+    },
+    async loadTodos(context) {
+      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json`;
+      const response = await fetch(url, {
+        method: METHOD_GET,
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        const error = new Error(
+          responseData.message || "Failed to send request"
+        );
+        throw error;
+      }
+      context.commit(
+        "loadTodos",
+        Object.entries(responseData).map((todo) => ({
+          id: todo[0],
+          label: todo[1].label,
+          isCompleted: todo[1].isCompleted,
+        }))
+      );
     },
   },
   getters: {

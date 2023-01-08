@@ -21,6 +21,9 @@ export default {
   components: {
     TodoItem,
   },
+  mounted() {
+    this.$store.dispatch("loadTodos");
+  },
   computed: {
     ...mapGetters(["todoItems"]),
   },
