@@ -1,5 +1,7 @@
 import { createStore } from "vuex";
 
+const METHOD_POST = "POST";
+
 const store = createStore({
   state() {
     return {
@@ -39,8 +41,28 @@ const store = createStore({
     },
   },
   actions: {
-    addTodo(context, data) {
-      context.commit("addTodo", { ...data, id: Math.random() * 100 });
+    async addTodo(context, data) {
+      // Create a new object to store the data that is going to be sent.
+      const newRequest = {
+        label: data.label,
+        isCompleted: data.isCompleted,
+      };
+      const response = await fetch(
+        "https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
+        {
+          method: METHOD_POST,
+          body: JSON.stringify(newRequest),
+        }
+      );
+      const responseData = await response.json();
+      if (!responseData.name) {
+        const error = new Error(
+          responseData.message || "Failed to send request"
+        );
+        throw error;
+      }
+      newRequest.id = responseData.name;
+      context.commit("addTodo", newRequest);
     },
     deleteTodo(context, todoId) {
       context.commit("deleteTodo", todoId);
