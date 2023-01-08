@@ -3,13 +3,25 @@
     <form>
       <div class="form-control">
         <label for="email">E-mail</label>
-        <input type="email" id="email" v-model.trim="email" />
+        <input
+          type="email"
+          id="email"
+          placeholder="example@gmail.com"
+          v-model.trim="email"
+        />
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model.trim="password" />
+        <input
+          type="password"
+          id="password"
+          placeholder="1234"
+          v-model.trim="password"
+        />
       </div>
-      <button class="btn btn-primary">{{ switchModeButtonCaption }}</button>
+      <button class="btn btn-primary mt-2">
+        {{ switchModeButtonCaption }}
+      </button>
     </form>
   </base-card>
 </template>
@@ -99,11 +111,11 @@ export default {
 </script>
 
 <style scoped>
-form {
-  width: 50%;
-}
 .form-control {
   margin: 0.5rem 0;
+  width: 100%;
+  height: auto;
+  border: none;
 }
 
 label {
@@ -118,6 +130,10 @@ input {
   font: inherit;
   border: 1px solid #ccc;
   padding: 0.15rem;
+}
+
+button {
+  margin-left: 0.75rem;
 }
 
 input:focus,
