@@ -45,85 +45,64 @@ const store = createStore({
   actions: {
     async addTodo(context, data) {
       // Create a new object to store the data that is going to be sent.
-      const newRequest = {
-        label: data.label,
-        isCompleted: data.isCompleted,
-      };
-      const response = await fetch(
-        "https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
-        {
-          method: METHOD_POST,
-          body: JSON.stringify(newRequest),
-        }
-      );
-      const responseData = await response.json();
-      if (!response.ok) {
-        const error = new Error(
-          responseData.message || "Failed to send request"
-        );
-        throw error;
+      try {
+        const requestBody = {
+          label: data.label,
+          isCompleted: data.isCompleted,
+        };
+        const url =
+          "https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json";
+        const responseData = await sendRequest(url, METHOD_POST, requestBody);
+        requestBody.id = responseData.name;
+        context.commit("addTodo", requestBody);
+      } catch (e) {
+        console.error(e);
+        throw e;
       }
-      newRequest.id = responseData.name;
-      context.commit("addTodo", newRequest);
     },
     async deleteTodo(context, todoId) {
-      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
-      const response = await fetch(url, {
-        method: METHOD_DELETE,
-      });
-      const responseData = await response.json();
-      if (!response.ok) {
-        const error = new Error(
-          responseData.message || "Failed to delete the todo"
-        );
-        throw error;
+      try {
+        const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
+        await sendRequest(url, METHOD_DELETE);
+        context.commit("deleteTodo", todoId);
+      } catch (e) {
+        console.error(e);
+        throw e;
       }
-      context.commit("deleteTodo", todoId);
     },
     toggleMarkAsCompleted(context, todoId) {
       context.commit("toggleMarkAsCompleted", todoId);
     },
     async editTodo(context, data) {
-      const { id, label } = data;
-      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${id}.json`;
-      const response = await fetch(url, {
-        method: METHOD_PUT,
-        body: JSON.stringify({
+      try {
+        const { id, label } = data;
+        const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${id}.json`;
+        await sendRequest(url, METHOD_PUT);
+        context.commit("editTodo", {
+          id,
           label,
-        }),
-      });
-      const responseData = await response.json();
-      if (!response.ok) {
-        const error = new Error(
-          responseData.message || "Failed to send request"
-        );
-        throw error;
+        });
+      } catch (e) {
+        console.error(e);
+        throw e;
       }
-      context.commit("editTodo", {
-        id,
-        label,
-      });
     },
     async loadTodos(context) {
       const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json`;
-      const response = await fetch(url, {
-        method: METHOD_GET,
-      });
-      const responseData = await response.json();
-      if (!response.ok) {
-        const error = new Error(
-          responseData.message || "Failed to send request"
+      try {
+        const responseData = await sendRequest(url, METHOD_GET);
+        context.commit(
+          "loadTodos",
+          Object.entries(responseData).map((todo) => ({
+            id: todo[0],
+            label: todo[1].label,
+            isCompleted: todo[1].isCompleted,
+          }))
         );
-        throw error;
+      } catch (e) {
+        console.error(e);
+        throw e;
       }
-      context.commit(
-        "loadTodos",
-        Object.entries(responseData).map((todo) => ({
-          id: todo[0],
-          label: todo[1].label,
-          isCompleted: todo[1].isCompleted,
-        }))
-      );
     },
   },
   getters: {
@@ -132,5 +111,18 @@ const store = createStore({
     },
   },
 });
+
+async function sendRequest(url, method, body, errorMessage) {
+  const response = await fetch(url, {
+    method,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const responseData = await response.json();
+  if (!response.ok) {
+    const error = new Error(responseData.message || errorMessage);
+    throw error;
+  }
+  return responseData;
+}
 
 export default store;
