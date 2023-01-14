@@ -19,9 +19,18 @@
       <todo-list></todo-list>
     </section>
   </base-card>
+  <v-snackbar v-model="isSnackbarOpen">
+    {{ snackbarMessage }}
+    <template v-slot:action="{ attrs }">
+      <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import TodoList from "../components/TodoList.vue";
 export default {
   components: { TodoList },
@@ -39,6 +48,9 @@ export default {
       // Reset the input value
       this.inputValue = "";
     },
+  },
+  computed: {
+    ...mapGetters("snackbar", ["snackbarMessage", "isSnackbarOpen"]),
   },
 };
 </script>

@@ -59,6 +59,9 @@ export default {
         );
         requestBody.id = responseData.name;
         context.commit("addTodo", requestBody);
+        context.dispatch("snackbar/showSnackbar", "Add todo successfully", {
+          root: true,
+        });
       } catch (e) {
         console.error(e);
         throw e;
