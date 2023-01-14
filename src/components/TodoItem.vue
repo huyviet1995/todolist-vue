@@ -92,7 +92,7 @@ input[type="checkbox"] {
 }
 
 input[type="text"] {
-  height: 24px;
+  height: 32px;
   padding-left: 5px;
   margin-bottom: 5px;
 }
@@ -103,8 +103,8 @@ input[type="text"] {
 }
 
 form {
-  width: 75%;
   position: relative;
+  margin-right: 10px;
 }
 
 .btn-reset {
@@ -130,6 +130,7 @@ form {
   display: flex;
   gap: 10px;
   margin-left: auto;
+  align-items: center;
 }
 img {
   opacity: 0.3;
