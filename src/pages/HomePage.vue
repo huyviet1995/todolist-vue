@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     addTodo() {
-      this.$store.dispatch("addTodo", {
+      this.$store.dispatch("todos/addTodo", {
         label: this.inputValue,
         isCompleted: false,
       });

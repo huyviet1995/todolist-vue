@@ -22,10 +22,10 @@ export default {
     TodoItem,
   },
   mounted() {
-    this.$store.dispatch("loadTodos");
+    this.$store.dispatch("todos/loadTodos");
   },
   computed: {
-    ...mapGetters(["todoItems"]),
+    ...mapGetters("todos", ["todoItems"]),
   },
 };
 </script>

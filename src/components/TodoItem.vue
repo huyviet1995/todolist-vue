@@ -47,7 +47,7 @@ export default {
   props: ["label", "isCompleted", "id"],
   methods: {
     handleSave() {
-      this.$store.dispatch("editTodo", {
+      this.$store.dispatch("todos/editTodo", {
         id: this.id,
         label: this.todoLabel,
       });
@@ -64,11 +64,11 @@ export default {
         `Do you want to delete this item ${this.todoLabel}`
       );
       if (confirmDelete) {
-        this.$store.dispatch("deleteTodo", this.id);
+        this.$store.dispatch("todos/deleteTodo", this.id);
       }
     },
     onCheck() {
-      this.$store.dispatch("toggleMarkAsCompleted", this.id);
+      this.$store.dispatch("todos/toggleMarkAsCompleted", this.id);
     },
     handleEdit() {
       this.editMode = true;
