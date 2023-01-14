@@ -19,9 +19,14 @@
           v-model.trim="password"
         />
       </div>
-      <button class="btn btn-primary mt-2">
-        {{ switchModeButtonCaption }}
-      </button>
+      <div className="button-groups">
+        <button class="btn btn-primary mt-2">
+          {{ submitButtonCaption }}
+        </button>
+        <a href="#" class="mt-2">
+          {{ switchModeButtonCaption }}
+        </a>
+      </div>
     </form>
   </base-card>
 </template>
@@ -132,8 +137,20 @@ input {
   padding: 0.15rem;
 }
 
-button {
-  margin-left: 0.75rem;
+.button-groups {
+  padding: 0 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.button-groups button {
+  width: 100%;
+}
+
+.button-group a {
+  text-decoration: underline;
 }
 
 input:focus,
