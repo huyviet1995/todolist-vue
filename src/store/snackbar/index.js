@@ -4,6 +4,7 @@ export default {
     return {
       show: false,
       message: "",
+      timeout: 2000,
     };
   },
   mutations: {
@@ -18,6 +19,9 @@ export default {
         show: true,
         message: payload,
       });
+      setTimeout(() => {
+        context.dispatch("hideSnackbar");
+      }, context.state.timeout);
     },
     hideSnackbar(context) {
       context.commit("changeSnackbarOpenState", {

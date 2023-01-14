@@ -19,13 +19,16 @@
       <todo-list></todo-list>
     </section>
   </base-card>
-  <v-snackbar v-model="isSnackbarOpen">
+  <v-snackbar
+    v-model="isSnackbarOpen"
+    content-class="snackbar"
+    rounded="true"
+    :timeout="timeout"
+  >
     {{ snackbarMessage }}
-    <template v-slot:action="{ attrs }">
-      <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-        Close
-      </v-btn>
-    </template>
+    <button class="btn btn-danger" color="pink" @click="closeSnackbar">
+      Close
+    </button>
   </v-snackbar>
 </template>
 
@@ -48,9 +51,12 @@ export default {
       // Reset the input value
       this.inputValue = "";
     },
+    closeSnackbar() {
+      this.$store.dispatch("snackbar/hideSnackbar");
+    },
   },
   computed: {
-    ...mapGetters("snackbar", ["snackbarMessage", "isSnackbarOpen"]),
+    ...mapGetters("snackbar", ["snackbarMessage", "isSnackbarOpen", "timeout"]),
   },
 };
 </script>
