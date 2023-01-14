@@ -23,7 +23,7 @@
         <button class="btn btn-primary mt-2">
           {{ submitButtonCaption }}
         </button>
-        <a href="#" class="mt-2">
+        <a href="#" class="mt-2" @click="switchAuthMode()">
           {{ switchModeButtonCaption }}
         </a>
       </div>
@@ -48,68 +48,68 @@ export default {
       if (this.mode === "login") {
         return "Login";
       } else {
-        return "Signup";
+        return "Sign up";
       }
     },
     switchModeButtonCaption() {
       if (this.mode === "login") {
-        return "Signup instead";
+        return "Sign up instead";
       } else {
         return "Login instead";
       }
     },
-    methods: {
-      async submitForm() {
-        this.formIsValid = true;
-        this.userCreatedSuccess = false;
-        if (
-          this.email === "" ||
-          !this.email.includes("@") ||
-          this.password.length < 6
-        ) {
-          this.formIsValid = false;
-          return;
-        }
+  },
+  methods: {
+    async submitForm() {
+      this.formIsValid = true;
+      this.userCreatedSuccess = false;
+      if (
+        this.email === "" ||
+        !this.email.includes("@") ||
+        this.password.length < 6
+      ) {
+        this.formIsValid = false;
+        return;
+      }
 
-        this.isLoading = true;
+      this.isLoading = true;
 
-        const authPayload = {
-          email: this.email,
-          password: this.password,
-        };
+      const authPayload = {
+        email: this.email,
+        password: this.password,
+      };
 
-        try {
-          if (this.mode === "login") {
-            await this.$store.dispatch("login", authPayload);
-            this.userAuthenticatedSuccess = true;
-          } else {
-            await this.$store.dispatch("signup", authPayload);
-            this.userCreatedSuccess = true;
-          }
-          const redirectUrl = "/" + (this.$route.query.redirect || "coaches");
-          this.$router.replace(redirectUrl);
-        } catch (err) {
-          this.error =
-            err.message ||
-            "failed to authenticate, Please try later. Check the login data";
-        }
-
-        this.isLoading = false;
-      },
-      switchAuthMode() {
+      try {
         if (this.mode === "login") {
-          this.mode = "signup";
-        } else if (this.mode === "signup") {
-          this.mode = "login";
+          await this.$store.dispatch("login", authPayload);
+          this.userAuthenticatedSuccess = true;
+        } else {
+          await this.$store.dispatch("signup", authPayload);
+          this.userCreatedSuccess = true;
         }
-      },
-      handleSuccess() {
-        this.userCreatedSuccess = false;
-        this.userAuthenticatedSuccess = false;
-      },
-      handleError() {
-        this.error = null;
-      },
+        const redirectUrl = "/" + (this.$route.query.redirect || "coaches");
+        this.$router.replace(redirectUrl);
+      } catch (err) {
+        this.error =
+          err.message ||
+          "failed to authenticate, Please try later. Check the login data";
+      }
+
+      this.isLoading = false;
+    },
+    switchAuthMode() {
+      if (this.mode === "login") {
+        this.mode = "signup";
+      } else if (this.mode === "signup") {
+        this.mode = "login";
+      }
+    },
+    handleSuccess() {
+      this.userCreatedSuccess = false;
+      this.userAuthenticatedSuccess = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
@@ -151,6 +151,7 @@ input {
 
 .button-group a {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 input:focus,
