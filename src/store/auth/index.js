@@ -1,4 +1,5 @@
 import router from "../../router";
+import { ERROR_MESSAGE } from "../../utils/enum/error";
 import { SNACKBAR_FAILURE, SNACKBAR_SUCCESS } from "../snackbar";
 
 let timer;
@@ -33,6 +34,8 @@ export default {
       context.dispatch("auth", { ...payload, mode: "signup" });
     },
     async auth(context, payload) {
+      // Set flag to show that the login request is being sent.
+      context.dispatch("loading/setLoadingState", true, { root: true });
       const mode = payload.mode;
       let url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCVlygBg2OVSO24rb2t_w5Hfqy87wJOT-Q";
@@ -53,14 +56,15 @@ export default {
 
       if (!response.ok) {
         const error = new Error(
-          responseData.message || "Failed to authenticate"
+          responseData.error.message || "Failed to authenticate"
         );
         // Show the error message when the login fails.
         if (mode === "login") {
           context.dispatch(
             "snackbar/showSnackbar",
             {
-              message: "Failed to login. Please try again",
+              message:
+                ERROR_MESSAGE[error.message] ?? "Failed to authenticated",
               state: SNACKBAR_FAILURE,
             },
             { root: true }
@@ -75,6 +79,9 @@ export default {
             { root: true }
           );
         }
+        // Set flag to show that the login request is being sent.
+        context.dispatch("loading/setLoadingState", false, { root: true });
+
         throw error;
       }
 
@@ -96,6 +103,9 @@ export default {
           }
         );
       }
+
+      // Set flag to show that the login request is being sent.
+      context.dispatch("loading/setLoadingState", false, { root: true });
 
       const expiresIn = +responseData.expiresIn * 1000;
       const expirationDate = new Date().getTime() + expiresIn;

@@ -20,7 +20,13 @@
         />
       </div>
       <div className="button-groups">
-        <button class="btn btn-primary mt-2">
+        <button class="btn btn-primary mt-2" :disabled="isLoading">
+          <span
+            v-if="getLoadingState"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
           {{ submitButtonCaption }}
         </button>
         <a href="#" class="mt-2" @click="switchAuthMode()">
@@ -32,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -39,7 +47,6 @@ export default {
       password: "",
       formIsValid: "",
       mode: "login",
-      isLoading: false,
       error: null,
     };
   },
@@ -58,6 +65,7 @@ export default {
         return "Login instead";
       }
     },
+    ...mapGetters("loading", ["getLoadingState"]),
   },
   methods: {
     async submitForm() {
@@ -71,8 +79,6 @@ export default {
         this.formIsValid = false;
         return;
       }
-
-      this.isLoading = true;
 
       const authPayload = {
         email: this.email,
@@ -92,8 +98,6 @@ export default {
           err.message ||
           "failed to authenticate, Please try later. Check the login data";
       }
-
-      this.isLoading = false;
     },
     switchAuthMode() {
       if (this.mode === "login") {
@@ -150,6 +154,11 @@ input {
 .button-group a {
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Spinner */
+button span {
+  margin-right: 4px;
 }
 
 input:focus,
