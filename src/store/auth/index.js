@@ -119,13 +119,14 @@ export default {
     logout(context) {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
-      localStorage.remove("tokenExpiration");
+      localStorage.removeItem("tokenExpiration");
 
       clearTimeout(timer);
 
       context.commit("setUser", {
         token: null,
         userId: null,
+        email: null,
       });
     },
     autoLogout(context) {

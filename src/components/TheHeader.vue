@@ -3,7 +3,7 @@
     <nav>
       <router-link to="/">{{ todoPageNavLabel }}</router-link>
       <router-link v-if="!isAuthenticated" to="/auth">Login</router-link>
-      <router-link v-else to="/auth">Logout</router-link>
+      <span v-else @click="onLogout">Logout</span>
     </nav>
   </header>
 </template>
@@ -22,6 +22,12 @@ export default {
       }
     },
   },
+  methods: {
+    onLogout() {
+      this.$store.dispatch("auth/logout");
+      this.$router.replace("/auth");
+    },
+  },
 };
 </script>
 
@@ -33,10 +39,12 @@ nav {
   margin-left: auto;
   width: fit-content;
 }
-nav a {
+nav a,
+nav span {
   color: white;
   font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
+  cursor: pointer;
 }
 </style>
