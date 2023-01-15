@@ -95,7 +95,7 @@ export default {
       } else {
         message = `${selectedTodo.label} is marked as completed successfully !`;
       }
-      context.dispatch("snackbar/showSnackbar", message);
+      context.dispatch("snackbar/showSnackbar", message, { root: true });
       context.commit("toggleMarkAsCompleted", todoId);
     },
     async editTodo(context, data) {
@@ -109,7 +109,8 @@ export default {
         });
         context.dispatch(
           "snackbar/showSnackbar",
-          "Todo is edited successfully"
+          "Todo is edited successfully",
+          { root: true }
         );
       } catch (e) {
         console.error(e);

@@ -47,10 +47,13 @@ export default {
   props: ["label", "isCompleted", "id"],
   methods: {
     handleSave() {
-      this.$store.dispatch("todos/editTodo", {
-        id: this.id,
-        label: this.todoLabel,
-      });
+      const isEdited = this.todoLabel !== this.label;
+      if (isEdited) {
+        this.$store.dispatch("todos/editTodo", {
+          id: this.id,
+          label: this.todoLabel,
+        });
+      }
       this.editMode = false;
       if (this.todoLabel.trim() === "") {
         this.deleteTodo();
