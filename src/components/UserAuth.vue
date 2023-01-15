@@ -20,7 +20,7 @@
         />
       </div>
       <div className="button-groups">
-        <button class="btn btn-primary mt-2" :disabled="isLoading">
+        <button class="btn btn-primary mt-2" :disabled="getLoadingState">
           <span
             v-if="getLoadingState"
             class="spinner-border spinner-border-sm"
