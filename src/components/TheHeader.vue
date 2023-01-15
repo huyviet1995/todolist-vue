@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style scoped>
+header {
+  margin-bottom: 32px;
+}
 nav {
   display: flex;
   gap: 20px;
