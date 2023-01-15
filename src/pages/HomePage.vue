@@ -26,9 +26,13 @@
     :timeout="timeout"
   >
     {{ snackbarMessage }}
-    <button class="btn btn-danger" color="pink" @click="closeSnackbar">
+    <span
+      class="text-white text-bold text-uppercase"
+      color="pink"
+      @click="closeSnackbar"
+    >
       Close
-    </button>
+    </span>
   </v-snackbar>
 </template>
 

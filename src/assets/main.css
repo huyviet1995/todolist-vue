@@ -20,6 +20,10 @@ a,
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: green;
+}
+.snackbar span {
+  cursor: pointer;
 }
 
 @media (min-width: 1024px) {

@@ -77,12 +77,25 @@ export default {
           undefined,
           "Failed to delete the todo please try again"
         );
+        context.dispatch("snackbar/showSnackbar", `Item deleted successfully`, {
+          root: true,
+        });
       } catch (e) {
         console.error(e);
         throw e;
       }
     },
     toggleMarkAsCompleted(context, todoId) {
+      const selectedTodo = context.state.todos.find(
+        (todo) => todo.id === todoId
+      );
+      let message;
+      if (selectedTodo.isCompleted) {
+        message = `${selectedTodo.label} is set as available !`;
+      } else {
+        message = `${selectedTodo.label} is marked as completed successfully !`;
+      }
+      context.dispatch("snackbar/showSnackbar", message);
       context.commit("toggleMarkAsCompleted", todoId);
     },
     async editTodo(context, data) {
@@ -94,6 +107,10 @@ export default {
           id,
           label,
         });
+        context.dispatch(
+          "snackbar/showSnackbar",
+          "Todo is edited successfully"
+        );
       } catch (e) {
         console.error(e);
         throw e;
