@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <form>
+    <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-mail</label>
         <input
@@ -81,13 +81,13 @@ export default {
 
       try {
         if (this.mode === "login") {
-          await this.$store.dispatch("login", authPayload);
+          await this.$store.dispatch("auth/login", authPayload);
           this.userAuthenticatedSuccess = true;
         } else {
-          await this.$store.dispatch("signup", authPayload);
+          await this.$store.dispatch("auth/signup", authPayload);
           this.userCreatedSuccess = true;
         }
-        const redirectUrl = "/" + (this.$route.query.redirect || "coaches");
+        const redirectUrl = "/" + (this.$route.query.redirect || "");
         this.$router.replace(redirectUrl);
       } catch (err) {
         this.error =
