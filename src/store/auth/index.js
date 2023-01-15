@@ -5,12 +5,14 @@ export default {
     return {
       userId: null,
       token: null,
+      email: null,
       tokenExpiration: null,
       didAutoLogout: null,
     };
   },
   mutations: {
     setUser(state, payload) {
+      state.email = payload.email;
       state.token = payload.token;
       state.userId = payload.userId;
       state.tokenExpiration = payload.tokenExpiration;
@@ -25,7 +27,6 @@ export default {
       context.dispatch("auth", { ...payload, mode: "login" });
     },
     async signup(context, payload) {
-      console.log("signing up the user", { payload });
       context.dispatch("auth", { ...payload, mode: "signup" });
     },
     async auth(context, payload) {
@@ -79,6 +80,7 @@ export default {
       localStorage.setItem("token", responseData.idToken);
       localStorage.setItem("userId", responseData.localId);
       localStorage.setItem("tokenExpiration", expirationDate);
+      localStorage.setItem("email", responseData.email);
 
       timer = setTimeout(function () {
         context.dispatch("autoLogout");
@@ -87,11 +89,13 @@ export default {
       context.commit("setUser", {
         token: responseData.idToken,
         userId: responseData.localId,
+        email: responseData.email,
       });
     },
     tryLogin(context) {
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
+      const email = localStorage.getItem("email");
       const tokenExpiration = localStorage.getItem("tokenExpiration");
 
       const expiresIn = +tokenExpiration - new Date().getTime();
@@ -108,6 +112,7 @@ export default {
         context.commit("setUser", {
           token,
           userId,
+          email,
         });
       }
     },
@@ -126,6 +131,23 @@ export default {
     autoLogout(context) {
       context.dispatch("logout");
       context.commit("setAutoLogout");
+    },
+  },
+  getters: {
+    userId(state) {
+      return state.userId;
+    },
+    email(state) {
+      return state.email;
+    },
+    token(state) {
+      return state.token;
+    },
+    isAuthenticated(state) {
+      return !!state.token;
+    },
+    didAutoLogout(state) {
+      return state.didAutoLogout;
     },
   },
 };
