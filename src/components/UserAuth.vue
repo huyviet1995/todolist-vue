@@ -3,20 +3,27 @@
     <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-mail</label>
-        <input
+        <div v-show="!formIsValid" class="error text-danger">{{ error }}</div>
+        <v-text-field
+          :error-messages="emailErrors"
           type="email"
           id="email"
           placeholder="example@gmail.com"
           v-model.trim="email"
+          @input="v$.email.$touch()"
+          @blur="v$.email.$touch()"
         />
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input
+        <v-text-field
+          :error-messages="passwordErrors"
           type="password"
           id="password"
           placeholder="1234"
           v-model.trim="password"
+          @input="v$.password.$touch()"
+          @blur="v$.password.$touch()"
         />
       </div>
       <div className="button-groups">
@@ -39,18 +46,27 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { email, required, minLength } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 export default {
+  validations() {
+    return {
+      email: { required, email },
+      password: { required, minLength: minLength(6) },
+    };
+  },
+  setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       email: "",
       password: "",
-      formIsValid: "",
       mode: "login",
       error: null,
     };
   },
   computed: {
+    ...mapGetters("loading", ["getLoadingState"]),
     submitButtonCaption() {
       if (this.mode === "login") {
         return "Login";
@@ -65,21 +81,26 @@ export default {
         return "Login instead";
       }
     },
-    ...mapGetters("loading", ["getLoadingState"]),
+    passwordErrors() {
+      const errors = [];
+      if (!this.v$.password.$dirty) return errors;
+      this.v$.password.minLength.$invalid &&
+        errors.push("Must be at least 6 characters long");
+      this.v$.password.required.$invalid &&
+        errors.push("Password is required.");
+      return errors;
+    },
+    emailErrors() {
+      const errors = [];
+      if (!this.v$.email.$dirty) return errors;
+      this.v$.email.required.$invalid && errors.push("E-mail is required");
+      this.v$.email.email.$invalid && errors.push("Must be valid e-mail");
+      return errors;
+    },
   },
   methods: {
     async submitForm() {
-      this.formIsValid = true;
-      this.userCreatedSuccess = false;
-      if (
-        this.email === "" ||
-        !this.email.includes("@") ||
-        this.password.length < 6
-      ) {
-        this.formIsValid = false;
-        return;
-      }
-
+      this.v$.$touch();
       const authPayload = {
         email: this.email,
         password: this.password,
@@ -166,5 +187,9 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.error {
+  margin-top: -8px;
 }
 </style>
