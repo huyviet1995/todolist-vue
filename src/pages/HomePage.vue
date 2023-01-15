@@ -1,4 +1,5 @@
 <template>
+  <h1 class="text-white">TO-DO LIST</h1>
   <base-card>
     <section
       class="main-container m-auto bg-red d-flex align-items-center flex-column"
@@ -66,6 +67,9 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  text-align: center;
+}
 input {
   height: 100%;
   width: 100%;
