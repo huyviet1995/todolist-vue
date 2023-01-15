@@ -54,6 +54,25 @@ export default {
         throw error;
       }
 
+      // Show the snackbar message
+      if (mode === "login") {
+        context.dispatch(
+          "snackbar/showSnackbar",
+          "User logins successfully !",
+          {
+            root: true,
+          }
+        );
+      } else {
+        context.dispatch(
+          "snackbar/showSnackbar",
+          "User signs up successfully !",
+          {
+            root: true,
+          }
+        );
+      }
+
       const expiresIn = +responseData.expiresIn * 1000;
       const expirationDate = new Date().getTime() + expiresIn;
 
