@@ -1,3 +1,6 @@
+import router from "../../router";
+import { SNACKBAR_FAILURE, SNACKBAR_SUCCESS } from "../snackbar";
+
 let timer;
 export default {
   namespaced: true,
@@ -52,14 +55,34 @@ export default {
         const error = new Error(
           responseData.message || "Failed to authenticate"
         );
+        // Show the error message when the login fails.
+        if (mode === "login") {
+          context.dispatch(
+            "snackbar/showSnackbar",
+            {
+              message: "Failed to login. Please try again",
+              state: SNACKBAR_FAILURE,
+            },
+            { root: true }
+          );
+        } else if (mode === "signup") {
+          context.dispatch(
+            "snackbar/showSnackbar",
+            {
+              message: "Failed to signup. Please try again",
+              state: SNACKBAR_FAILURE,
+            },
+            { root: true }
+          );
+        }
         throw error;
       }
 
-      // Show the snackbar message
+      // Show the snackbar message when the login succeeds
       if (mode === "login") {
         context.dispatch(
           "snackbar/showSnackbar",
-          "User logins successfully !",
+          { message: "User logins successfully !", state: SNACKBAR_SUCCESS },
           {
             root: true,
           }
@@ -67,7 +90,7 @@ export default {
       } else {
         context.dispatch(
           "snackbar/showSnackbar",
-          "User signs up successfully !",
+          { message: "User signs up successfully !", state: SNACKBAR_SUCCESS },
           {
             root: true,
           }
@@ -91,6 +114,7 @@ export default {
         userId: responseData.localId,
         email: responseData.email,
       });
+      router.push("/");
     },
     tryLogin(context) {
       const token = localStorage.getItem("token");

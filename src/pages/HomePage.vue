@@ -20,25 +20,9 @@
       <todo-list></todo-list>
     </section>
   </base-card>
-  <v-snackbar
-    v-model="isSnackbarOpen"
-    content-class="snackbar"
-    rounded="true"
-    :timeout="timeout"
-  >
-    {{ snackbarMessage }}
-    <span
-      class="text-white text-bold text-uppercase"
-      color="pink"
-      @click="closeSnackbar"
-    >
-      Close
-    </span>
-  </v-snackbar>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import TodoList from "../components/TodoList.vue";
 export default {
   components: { TodoList },
@@ -59,9 +43,6 @@ export default {
     closeSnackbar() {
       this.$store.dispatch("snackbar/hideSnackbar");
     },
-  },
-  computed: {
-    ...mapGetters("snackbar", ["snackbarMessage", "isSnackbarOpen", "timeout"]),
   },
 };
 </script>

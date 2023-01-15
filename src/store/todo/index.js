@@ -1,3 +1,5 @@
+import { SNACKBAR_SUCCESS } from "../snackbar";
+
 const METHOD_POST = "POST";
 const METHOD_PUT = "PUT";
 const METHOD_DELETE = "DELETE";
@@ -59,9 +61,13 @@ export default {
         );
         requestBody.id = responseData.name;
         context.commit("addTodo", requestBody);
-        context.dispatch("snackbar/showSnackbar", "Add todo successfully", {
-          root: true,
-        });
+        context.dispatch(
+          "snackbar/showSnackbar",
+          { message: "Todo added successfully", state: SNACKBAR_SUCCESS },
+          {
+            root: true,
+          }
+        );
       } catch (e) {
         console.error(e);
         throw e;
@@ -77,9 +83,13 @@ export default {
           undefined,
           "Failed to delete the todo please try again"
         );
-        context.dispatch("snackbar/showSnackbar", `Item deleted successfully`, {
-          root: true,
-        });
+        context.dispatch(
+          "snackbar/showSnackbar",
+          { message: `Item deleted successfully`, state: SNACKBAR_SUCCESS },
+          {
+            root: true,
+          }
+        );
       } catch (e) {
         console.error(e);
         throw e;
@@ -95,7 +105,11 @@ export default {
       } else {
         message = `${selectedTodo.label} is marked as completed successfully !`;
       }
-      context.dispatch("snackbar/showSnackbar", message, { root: true });
+      context.dispatch(
+        "snackbar/showSnackbar",
+        { message, state: SNACKBAR_SUCCESS },
+        { root: true }
+      );
       context.commit("toggleMarkAsCompleted", todoId);
     },
     async editTodo(context, data) {
@@ -109,7 +123,7 @@ export default {
         });
         context.dispatch(
           "snackbar/showSnackbar",
-          "Todo is edited successfully",
+          { message: "Todo edited successfully", state: SNACKBAR_SUCCESS },
           { root: true }
         );
       } catch (e) {

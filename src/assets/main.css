@@ -16,16 +16,6 @@ a,
   transition: 0.4s;
 }
 
-.snackbar div[role=status] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: green;
-}
-.snackbar span {
-  cursor: pointer;
-}
-
 @media (min-width: 1024px) {
   body {
     display: flex;

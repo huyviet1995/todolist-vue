@@ -87,8 +87,6 @@ export default {
           await this.$store.dispatch("auth/signup", authPayload);
           this.userCreatedSuccess = true;
         }
-        const redirectUrl = "/" + (this.$route.query.redirect || "");
-        this.$router.replace(redirectUrl);
       } catch (err) {
         this.error =
           err.message ||
