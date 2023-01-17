@@ -137,18 +137,13 @@ form {
   flex-direction: column;
   gap: 20px;
 }
+
 .form-control {
   margin: 0.5rem 0;
   width: 100%;
   height: auto;
   border: none;
 }
-
-/* label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: block;
-} */
 
 .button-groups {
   padding: 0 12px;

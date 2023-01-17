@@ -16,6 +16,10 @@ a,
   transition: 0.4s;
 }
 
+form div[role="alert"] {
+  color: var(--danger) !important;
+}
+
 @media (min-width: 1024px) {
   body {
     display: flex;
