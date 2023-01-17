@@ -8,6 +8,7 @@ import "./assets/main.css";
 // Vuetify
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import 'vuetify/styles';
 
 const vuetify = createVuetify({
   components,

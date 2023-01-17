@@ -1,31 +1,24 @@
 <template>
   <base-card>
     <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">E-mail</label>
-        <div v-show="!formIsValid" class="error text-danger">{{ error }}</div>
-        <v-text-field
-          :error-messages="emailErrors"
-          type="email"
-          id="email"
-          placeholder="example@gmail.com"
-          v-model.trim="email"
-          @input="v$.email.$touch()"
-          @blur="v$.email.$touch()"
-        />
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <v-text-field
-          :error-messages="passwordErrors"
-          type="password"
-          id="password"
-          placeholder="1234"
-          v-model.trim="password"
-          @input="v$.password.$touch()"
-          @blur="v$.password.$touch()"
-        />
-      </div>
+      <v-text-field
+        :error-messages="emailErrors"
+        variant="outlined"
+        label="Email"
+        placeholder="example@gmail.com"
+        v-model.trim="email"
+        @input="v$.email.$touch()"
+        @blur="v$.email.$touch()"
+      />
+      <v-text-field
+        label="Password"
+        variant="outlined"
+        :error-messages="passwordErrors"
+        placeholder="1234"
+        v-model.trim="password"
+        @input="v$.password.$touch()"
+        @blur="v$.password.$touch()"
+      />
       <div className="button-groups">
         <button class="btn btn-primary mt-2" :disabled="getLoadingState">
           <span
@@ -139,6 +132,11 @@ export default {
 </script>
 
 <style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .form-control {
   margin: 0.5rem 0;
   width: 100%;
@@ -146,19 +144,11 @@ export default {
   border: none;
 }
 
-label {
+/* label {
   font-weight: bold;
   margin-bottom: 0.5rem;
   display: block;
-}
-
-input {
-  display: block;
-  width: 100%;
-  font: inherit;
-  border: 1px solid #ccc;
-  padding: 0.15rem;
-}
+} */
 
 .button-groups {
   padding: 0 12px;
@@ -180,13 +170,6 @@ input {
 /* Spinner */
 button span {
   margin-right: 4px;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #3d008d;
-  background-color: #faf6ff;
-  outline: none;
 }
 
 .error {

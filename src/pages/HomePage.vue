@@ -2,7 +2,7 @@
   <h1 class="text-white">TO-DO LIST</h1>
   <base-card>
     <section
-      class="main-container m-auto bg-red d-flex align-items-center flex-column"
+      class="main-container m-auto d-flex align-items-center flex-column"
     >
       <div class="row w-100 m-3 d input-container">
         <div class="col-sm-10 px-0">
