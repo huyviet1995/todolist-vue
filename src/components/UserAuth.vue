@@ -116,10 +116,17 @@ export default {
     },
     switchAuthMode() {
       if (this.mode === "login") {
+        this.resetForm();
         this.mode = "signup";
       } else if (this.mode === "signup") {
+        this.resetForm();
         this.mode = "login";
       }
+    },
+    resetForm() {
+      this.v$.$reset();
+      this.email = "";
+      this.password = "";
     },
     handleSuccess() {
       this.userCreatedSuccess = false;
