@@ -12,6 +12,7 @@
       />
       <v-text-field
         label="Password"
+        type="password"
         variant="outlined"
         :error-messages="passwordErrors"
         placeholder="1234"
