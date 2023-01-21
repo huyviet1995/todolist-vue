@@ -22,14 +22,6 @@ export default {
     deleteTodo(state, todoId) {
       state.todos = state.todos.filter((todo) => todo.id !== todoId);
     },
-    toggleMarkAsCompleted(state, todoId) {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id === todoId) {
-          todo.isCompleted = !todo.isCompleted;
-        }
-        return todo;
-      });
-    },
     editTodo(state, payload) {
       const { id, label } = payload;
       state.todos = state.todos.map((todo) => {
@@ -45,21 +37,25 @@ export default {
   },
   actions: {
     async addTodo(context, data) {
-      // Create a new object to store the data that is going to be sent.
+      const userId = context.rootGetters["auth/userId"];
       try {
         const requestBody = {
           label: data.label,
           isCompleted: data.isCompleted,
         };
-        const url =
-          "https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json";
-        const responseData = await sendRequest(
-          url,
-          METHOD_POST,
-          requestBody,
-          "Failed to add todo"
-        );
-        requestBody.id = responseData.name;
+        // Only send a request when the user has finished up their logins/signups..
+        if (userId) {
+          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${userId}.json`;
+          const responseData = await sendRequest(
+            url,
+            METHOD_POST,
+            requestBody,
+            "Failed to add todo"
+          );
+          requestBody.id = responseData.name;
+        } else {
+          requestBody.id = Math.floor(Math.random() * 1000);
+        }
         context.commit("addTodo", requestBody);
         context.dispatch(
           "snackbar/showSnackbar",
@@ -74,9 +70,12 @@ export default {
       }
     },
     async deleteTodo(context, todoId) {
+      const userId = context.rootGetters["auth/userId"];
       try {
-        const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
-        await sendRequest(url, METHOD_DELETE);
+        if (userId) {
+          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
+          await sendRequest(url, METHOD_DELETE);
+        }
         context.commit(
           "deleteTodo",
           todoId,
@@ -95,28 +94,43 @@ export default {
         throw e;
       }
     },
-    toggleMarkAsCompleted(context, todoId) {
+    async toggleMarkAsCompleted(context, todoId) {
+      const userId = context.rootGetters["auth/userId"];
       const selectedTodo = context.state.todos.find(
         (todo) => todo.id === todoId
       );
+      // Toggle the isCompleted
+      selectedTodo.isCompleted = !selectedTodo.isCompleted;
       let message;
-      if (selectedTodo.isCompleted) {
-        message = `${selectedTodo.label} is set as available !`;
-      } else {
-        message = `${selectedTodo.label} is marked as completed successfully !`;
+      try {
+        if (userId) {
+          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
+          await sendRequest(url, METHOD_PUT, selectedTodo);
+        }
+        if (selectedTodo.isCompleted) {
+          message = `${selectedTodo.label} is set as available !`;
+        } else {
+          message = `${selectedTodo.label} is marked as completed successfully !`;
+        }
+        context.commit("editTodo", todoId, selectedTodo);
+        context.dispatch(
+          "snackbar/showSnackbar",
+          { message, state: SNACKBAR_SUCCESS },
+          { root: true }
+        );
+      } catch (e) {
+        console.error(e);
+        throw e;
       }
-      context.dispatch(
-        "snackbar/showSnackbar",
-        { message, state: SNACKBAR_SUCCESS },
-        { root: true }
-      );
-      context.commit("toggleMarkAsCompleted", todoId);
     },
     async editTodo(context, data) {
+      const userId = context.rootGetters["auth/userId"];
       try {
         const { id, label } = data;
         const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${id}.json`;
-        await sendRequest(url, METHOD_PUT, data, "Failed to edit the todo");
+        if (userId) {
+          await sendRequest(url, METHOD_PUT, data, "Failed to edit the todo");
+        }
         context.commit("editTodo", {
           id,
           label,
@@ -132,22 +146,25 @@ export default {
       }
     },
     async loadTodos(context) {
+      const userId = context.rootGetters["auth/userId"];
       const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json`;
       try {
-        const responseData = await sendRequest(
-          url,
-          METHOD_GET,
-          undefined,
-          "Failed to load todo"
-        );
-        context.commit(
-          "loadTodos",
-          Object.entries(responseData).map((todo) => ({
-            id: todo[0],
-            label: todo[1].label,
-            isCompleted: todo[1].isCompleted,
-          }))
-        );
+        if (userId) {
+          const responseData = await sendRequest(
+            url,
+            METHOD_GET,
+            undefined,
+            "Failed to load todo"
+          );
+          context.commit(
+            "loadTodos",
+            Object.entries(responseData).map((todo) => ({
+              id: todo[0],
+              label: todo[1].label,
+              isCompleted: todo[1].isCompleted,
+            }))
+          );
+        }
       } catch (e) {
         console.error(e);
         throw e;
