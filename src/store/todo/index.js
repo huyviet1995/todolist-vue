@@ -73,7 +73,7 @@ export default {
       const userId = context.rootGetters["auth/userId"];
       try {
         if (userId) {
-          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
+          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${userId}/${todoId}.json`;
           await sendRequest(url, METHOD_DELETE);
         }
         context.commit(
@@ -104,7 +104,7 @@ export default {
       let message;
       try {
         if (userId) {
-          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${todoId}.json`;
+          const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${userId}/${todoId}.json`;
           await sendRequest(url, METHOD_PUT, selectedTodo);
         }
         if (selectedTodo.isCompleted) {
@@ -127,7 +127,7 @@ export default {
       const userId = context.rootGetters["auth/userId"];
       try {
         const { id, label } = data;
-        const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${id}.json`;
+        const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${userId}/${id}.json`;
         if (userId) {
           await sendRequest(url, METHOD_PUT, data, "Failed to edit the todo");
         }
@@ -147,7 +147,7 @@ export default {
     },
     async loadTodos(context) {
       const userId = context.rootGetters["auth/userId"];
-      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json`;
+      const url = `https://vue-project-a031a-default-rtdb.asia-southeast1.firebasedatabase.app/todos/${userId}.json`;
       try {
         if (userId) {
           const responseData = await sendRequest(
