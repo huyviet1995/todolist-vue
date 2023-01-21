@@ -155,6 +155,8 @@ export default {
       localStorage.removeItem("userId");
       localStorage.removeItem("tokenExpiration");
 
+      context.dispatch("todos/clearTodos", undefined, { root: true });
+
       clearTimeout(timer);
 
       context.commit("setUser", {

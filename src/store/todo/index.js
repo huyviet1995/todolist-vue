@@ -170,6 +170,9 @@ export default {
         throw e;
       }
     },
+    clearTodos(context) {
+      context.commit("loadTodos", []);
+    },
   },
   getters: {
     todoItems(state) {
