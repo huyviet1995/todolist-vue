@@ -1,5 +1,8 @@
 <template>
   <section class="px-4 bg-white w-100 py-3">
+    <p class="text-red" v-if="!isAuthenticated && todoItems.length > 0">
+      Please sign up so your resolutions can be saved !
+    </p>
     <ul v-if="todoItems.length > 0" class="pl-0">
       <todo-item
         v-for="item in todoItems"
@@ -26,6 +29,7 @@ export default {
   },
   computed: {
     ...mapGetters("todos", ["todoItems"]),
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
 };
 </script>
