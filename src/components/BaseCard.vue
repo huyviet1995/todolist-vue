@@ -9,7 +9,7 @@
   padding: 1rem;
   margin: 2rem 5px;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 450px) {
   .card {
     border-radius: 12px;
     margin: 2rem auto;

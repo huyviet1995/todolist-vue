@@ -52,9 +52,9 @@ export default {
     ...mapGetters("auth", ["isAuthenticated", "email"]),
     todoPageNavLabel() {
       if (this.isAuthenticated) {
-        return `${this.email}'s todos`;
+        return `${this.email}'s resolutions`;
       } else {
-        return "Your todos";
+        return "Your resolutions";
       }
     },
   },

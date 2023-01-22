@@ -8,9 +8,9 @@
             hide-details
             class="px-2 text-field"
             type="text"
-            placeholder="New resolution"
+            placeholder="Enter your commitment"
             v-model.trim="inputValue"
-            label="New Resolution"
+            label="New resolution"
             variant="outlined"
           />
         </div>

@@ -10,7 +10,7 @@
       >
       </todo-item>
     </ul>
-    <div v-else>No todos to show</div>
+    <div v-else>No resolutions to show</div>
   </section>
 </template>
 
