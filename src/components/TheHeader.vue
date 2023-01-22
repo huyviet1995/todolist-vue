@@ -2,22 +2,13 @@
   <v-card class="mx-auto overflow-hidden" width="344">
     <v-app-bar color="orange-darken-4" class="v-app-bar" mb-3 prominent>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>My files</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-filter</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      <nav>
+        <router-link to="/">
+          {{ todoPageNavLabel }}
+        </router-link>
+        <router-link v-if="!isAuthenticated" to="/auth">Login</router-link>
+        <span v-else @click="onLogout">Logout</span>
+      </nav>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
@@ -27,19 +18,13 @@
           active-class="deep-purple--text text--accent-4"
         >
           <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
+            <router-link to="/">{{ todoPageNavLabel }}</router-link>
           </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
+          <v-list-item v-if="!isAuthenticated">
+            <router-link to="/auth">Login</router-link>
           </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
+          <v-list-item v-else>
+            <span @click="onLogout">Logout</span>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -84,6 +69,8 @@ nav {
   display: flex;
   gap: 20px;
   width: fit-content;
+  margin-left: auto;
+  margin-right: 40px;
 }
 nav a,
 nav span {
@@ -91,5 +78,6 @@ nav span {
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+  color: white;
 }
 </style>
