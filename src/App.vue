@@ -28,6 +28,9 @@
         </transition>
       </v-main>
     </v-card>
+    <v-footer class="footer"
+      >A product created by Viet Dang, all rights reserved</v-footer
+    >
   </v-app>
 </template>
 
@@ -73,6 +76,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   background-color: green;
+}
+
+.footer {
+  justify-content: center;
+  background-color: #E65100;
+  color: white;
 }
 
 .snackbar--failure div[role="status"] {

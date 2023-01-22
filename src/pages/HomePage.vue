@@ -1,19 +1,22 @@
 <template>
   <the-main-title></the-main-title>
   <base-card>
-    <section
-      class="main-container m-auto d-flex align-items-center flex-column"
-    >
+    <section class="container-fluid d-flex align-items-center flex-column">
       <div class="row w-100 m-3 d">
-        <div class="col-sm-9 px-0 mb-3 mb-sm-0 pr-sm-1">
-          <input
-            class="px-2"
+        <div class="col-sm-10 px-0 pr-sm-1">
+          <v-text-field
+            hide-details
+            class="px-2 text-field"
             type="text"
             placeholder="New resolution"
             v-model.trim="inputValue"
+            label="New Resolution"
+            variant="outlined"
           />
         </div>
-        <div class="col-sm-3 px-0">
+        <div
+          class="col-sm-2 px-1 mt-2 mt-sm-0 px-sm-0 d-flex align-items-center"
+        >
           <button @click="addTodo" class="btn">ADD</button>
         </div>
       </div>
@@ -48,27 +51,30 @@ export default {
 };
 </script>
 
-<style scoped>
-input {
-  min-height: 38px;
-  border: 1px solid coral;
+<style scoped lang="scss">
+section {
+  padding: 0px;
+}
+.text-field {
+  width: 100%;
 }
 
 button {
   background-color: red;
   color: white;
-  font-weight: bold;
   width: 100%;
+  height: 100%;
+  font-weight: bold;
+}
+
+button:hover {
+  color: white;
 }
 
 input {
   height: 100%;
   width: 100%;
 }
-.main-container {
-  max-width: 340px;
-}
-
 .input-container {
   display: flex;
   gap: 5px;
