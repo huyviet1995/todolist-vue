@@ -5,7 +5,7 @@
       <router-link to="/">
         {{ todoPageNavLabel }}
       </router-link>
-      <router-link v-if="!isAuthenticated" to="/auth">Login</router-link>
+      <router-link v-if="!isAuthenticated" to="/auth">Sign up</router-link>
       <span v-else @click="onLogout">Logout</span>
     </nav>
   </v-app-bar>

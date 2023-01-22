@@ -58,7 +58,7 @@ export default {
     return {
       email: "",
       password: "",
-      mode: "login",
+      mode: "signup",
       error: null,
     };
   },
