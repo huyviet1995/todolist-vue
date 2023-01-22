@@ -1,5 +1,7 @@
 <template>
-  <h1 class="text-white">TO-DO LIST</h1>
+  <h1 class="text-white">
+    <span class="text-emphasis">2023</span>'s RESOLUTIONS
+  </h1>
   <base-card>
     <section
       class="main-container m-auto d-flex align-items-center flex-column"
@@ -51,6 +53,13 @@ export default {
 h1 {
   text-align: center;
 }
+
+.text-emphasis {
+  font-size: 60px;
+  color: red;
+  font-weight: bold;
+}
+
 input {
   height: 100%;
   width: 100%;
