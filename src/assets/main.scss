@@ -23,14 +23,22 @@ form div[role="alert"] {
   background-color: #ef6c00 !important;
 }
 
-.snackbar div[role=status] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: green;
+.snackbar {
+  top: 64px;
+  div[role=status] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: green;
+  }
+
+  &--failure {
+    div[role=status] {
+      background-color: red;
+    }
+  }
 }
 
 .snackbar span {
   cursor: pointer;
 }
-
