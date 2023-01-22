@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="orange-darken-4" class="v-app-bar" mb-3>
-    <i class="bi bi-list d-sm-none d-block"></i>
+    <i class="bi bi-list d-sm-none d-block" @click.stop="drawer = !drawer"></i>
     <nav class="d-sm-flex d-none">
       <router-link to="/">
         {{ todoPageNavLabel }}
@@ -10,22 +10,20 @@
     </nav>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" absolute left temporary top="0">
-    <v-list nav dense>
-      <v-list-item-group
-        v-model="group"
-        active-class="deep-purple--text text--accent-4"
-      >
-        <v-list-item>
-          <router-link to="/">{{ todoPageNavLabel }}</router-link>
-        </v-list-item>
-        <v-list-item v-if="!isAuthenticated">
-          <router-link to="/auth">Login</router-link>
-        </v-list-item>
-        <v-list-item v-else>
-          <span @click="onLogout">Logout</span>
-        </v-list-item>
-      </v-list-item-group>
+  <v-navigation-drawer
+    v-model="drawer"
+    absolute
+    position="left"
+    color="#ef6c00"
+    temporary
+    top="0"
+    width="100vw"
+    theme="dark"
+  >
+    <v-list nav dense class="nav--mobile">
+      <router-link to="/">{{ todoPageNavLabel }}</router-link>
+      <router-link v-if="!isAuthenticated" to="/auth">Login</router-link>
+      <span v-else @click="onLogout">Logout</span>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -64,7 +62,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 header {
   margin-bottom: 32px;
 }
@@ -74,14 +72,16 @@ i {
   font-size: 40px;
   font-weight: bold;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 header >>> .v-navigation-drawer {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   top: 0 !important;
   position: absolute;
   z-index: 9999;
+  background-color: #ef6c00 !important;
 }
 
 nav {
@@ -92,6 +92,16 @@ nav {
   height: 100%;
   z-index: 9999;
 }
+
+.nav--mobile {
+  display: flex;
+  flex-direction: column;
+  a,
+  span {
+    margin: 10px 0;
+  }
+}
+
 nav a,
 nav span {
   font-weight: bold;
