@@ -6,8 +6,8 @@
     <section
       class="main-container m-auto d-flex align-items-center flex-column"
     >
-      <div class="row w-100 m-3 d input-container">
-        <div class="col-sm-10 px-0">
+      <div class="row w-100 m-3 d">
+        <div class="col-sm-9 px-0 mb-3 mb-sm-0 pr-sm-1">
           <input
             class="px-2"
             type="text"
@@ -15,7 +15,7 @@
             v-model.trim="inputValue"
           />
         </div>
-        <div class="col-sm-2 px-0">
+        <div class="col-sm-3 px-0">
           <button @click="addTodo" class="btn">ADD</button>
         </div>
       </div>
@@ -54,7 +54,12 @@ h1 {
   text-align: center;
 }
 
-.btn {
+input {
+  min-height: 38px;
+  border: 1px solid coral;
+}
+
+button {
   background-color: red;
   color: white;
   font-weight: bold;
