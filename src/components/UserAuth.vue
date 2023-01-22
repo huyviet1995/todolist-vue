@@ -22,7 +22,7 @@
         @blur="v$.password.$touch()"
       />
       <div className="button-groups">
-        <button class="btn btn-primary mt-2" :disabled="getLoadingState">
+        <button class="btn mt-2" :disabled="getLoadingState">
           <span
             v-if="getLoadingState"
             class="spinner-border spinner-border-sm"
@@ -73,9 +73,9 @@ export default {
     },
     switchModeButtonCaption() {
       if (this.mode === "login") {
-        return "Sign up instead";
+        return "Don't have an account?. Sign up instead";
       } else {
-        return "Login instead";
+        return "Have an account?. Login instead";
       }
     },
     passwordErrors() {
@@ -166,6 +166,9 @@ form {
 
 .button-groups button {
   width: 100%;
+  background-color: #ef6c00;
+  text-transform: uppercase;
+  color: white;
 }
 
 .button-group a {
