@@ -62,7 +62,9 @@ export default {
 }
 
 .v-card {
-  background-color: #ef6c00;
+  background-image: url("./assets/img/flat-tet-background_23-2149237165.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100%;
   z-index: 9999;
 }

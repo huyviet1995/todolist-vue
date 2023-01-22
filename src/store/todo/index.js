@@ -59,7 +59,7 @@ export default {
         context.commit("addTodo", requestBody);
         context.dispatch(
           "snackbar/showSnackbar",
-          { message: "Todo added successfully", state: SNACKBAR_SUCCESS },
+          { message: "Resolution added successfully", state: SNACKBAR_SUCCESS },
           {
             root: true,
           }
@@ -137,7 +137,10 @@ export default {
         });
         context.dispatch(
           "snackbar/showSnackbar",
-          { message: "Todo edited successfully", state: SNACKBAR_SUCCESS },
+          {
+            message: "Resolution edited successfully",
+            state: SNACKBAR_SUCCESS,
+          },
           { root: true }
         );
       } catch (e) {
