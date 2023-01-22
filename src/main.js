@@ -4,7 +4,7 @@ import App from "./App.vue";
 import BaseCard from "./components/BaseCard.vue";
 import router from "./router";
 import store from "./store";
-import "./assets/main.css";
+import "./assets/main.scss";
 // Vuetify
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";

@@ -22,8 +22,12 @@
     class="navigation-drawer"
   >
     <v-list nav dense class="nav--mobile">
-      <router-link to="/">{{ todoPageNavLabel }}</router-link>
-      <router-link v-if="!isAuthenticated" to="/auth">Login</router-link>
+      <router-link @click="handleLinkClick" to="/">{{
+        todoPageNavLabel
+      }}</router-link>
+      <router-link @click="handleLinkClick" v-if="!isAuthenticated" to="/auth"
+        >Login</router-link
+      >
       <span v-else @click="onLogout">Logout</span>
     </v-list>
   </v-navigation-drawer>
@@ -56,8 +60,12 @@ export default {
   },
   methods: {
     onLogout() {
+      this.drawer = false;
       this.$store.dispatch("auth/logout");
       this.$router.replace("/auth");
+    },
+    handleLinkClick(e) {
+      this.drawer = false;
     },
   },
 };

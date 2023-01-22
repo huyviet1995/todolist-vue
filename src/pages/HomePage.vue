@@ -1,6 +1,6 @@
 <template>
+  <the-main-title></the-main-title>
   <base-card>
-    <the-main-title></the-main-title>
     <section
       class="main-container m-auto d-flex align-items-center flex-column"
     >
