@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-white">
+  <h1 class="text-white font-bold">
     <span class="text-emphasis">2023</span>'s RESOLUTIONS
   </h1>
   <base-card>
@@ -63,11 +63,12 @@ button {
   background-color: red;
   color: white;
   font-weight: bold;
+  width: 100%;
 }
 
 .text-emphasis {
   font-size: 60px;
-  color: red;
+  color: white;
   font-weight: bold;
 }
 

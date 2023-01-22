@@ -1,5 +1,8 @@
 @import './base.css';
-
+body {
+  display: flex;
+  background-color:coral;
+}
 #app {
   margin: 0 auto;
   min-width: 75%;
@@ -22,11 +25,4 @@ a,
 
 form div[role="alert"] {
   color: var(--danger) !important;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    background-color:coral;
-  }
 }
