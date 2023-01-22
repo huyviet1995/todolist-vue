@@ -19,6 +19,7 @@
     top="0"
     width="100vw"
     theme="dark"
+    class="navigation-drawer"
   >
     <v-list nav dense class="nav--mobile">
       <router-link to="/">{{ todoPageNavLabel }}</router-link>
@@ -73,15 +74,6 @@ i {
   font-weight: bold;
   margin-left: 20px;
   cursor: pointer;
-}
-
-header >>> .v-navigation-drawer {
-  height: 100vh;
-  width: 100%;
-  top: 0 !important;
-  position: absolute;
-  z-index: 9999;
-  background-color: #ef6c00 !important;
 }
 
 nav {

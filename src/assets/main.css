@@ -16,3 +16,10 @@ a,
 form div[role="alert"] {
   color: var(--danger) !important;
 }
+
+.navigation-drawer {
+  min-width: 75vw !important;
+  position: absolute;
+  z-index: 9999;
+  background-color: #ef6c00 !important;
+}
