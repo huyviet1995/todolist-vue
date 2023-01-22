@@ -1,4 +1,5 @@
 <template>
+  <the-main-title></the-main-title>
   <base-card>
     <form @submit.prevent="submitForm">
       <v-text-field
@@ -42,8 +43,10 @@
 import { mapGetters } from "vuex";
 import { email, required, minLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import TheMainTitle from "./TheMainTitle.vue";
 
 export default {
+  components: { TheMainTitle },
   validations() {
     return {
       email: { required, email },

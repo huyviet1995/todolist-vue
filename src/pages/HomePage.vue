@@ -1,8 +1,6 @@
 <template>
-  <h1 class="text-white font-bold">
-    <span class="text-emphasis">2023</span>'s RESOLUTIONS
-  </h1>
   <base-card>
+    <the-main-title></the-main-title>
     <section
       class="main-container m-auto d-flex align-items-center flex-column"
     >
@@ -26,8 +24,9 @@
 
 <script>
 import TodoList from "../components/TodoList.vue";
+import TheMainTitle from "../components/TheMainTitle.vue";
 export default {
-  components: { TodoList },
+  components: { TodoList, TheMainTitle },
   data() {
     return {
       inputValue: "",
@@ -50,10 +49,6 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  text-align: center;
-}
-
 input {
   min-height: 38px;
   border: 1px solid coral;
@@ -64,12 +59,6 @@ button {
   color: white;
   font-weight: bold;
   width: 100%;
-}
-
-.text-emphasis {
-  font-size: 60px;
-  color: white;
-  font-weight: bold;
 }
 
 input {
