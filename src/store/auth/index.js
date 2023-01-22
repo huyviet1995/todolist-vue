@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import router from "../../router";
 import { ERROR_MESSAGE } from "../../utils/enum/error";
 import { SNACKBAR_FAILURE, SNACKBAR_SUCCESS } from "../snackbar";
@@ -37,11 +38,13 @@ export default {
       // Set flag to show that the login request is being sent.
       context.dispatch("loading/setLoadingState", true, { root: true });
       const mode = payload.mode;
-      let url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCVlygBg2OVSO24rb2t_w5Hfqy87wJOT-Q";
+      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
+        import.meta.env.VITE_APP_FIREBADE_SECRET_KEY
+      }`;
       if (mode === "signup") {
-        url =
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCVlygBg2OVSO24rb2t_w5Hfqy87wJOT-Q";
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
+          import.meta.env.VITE_APP_FIREBADE_SECRET_KEY
+        }`;
       }
       const response = await fetch(url, {
         method: "POST",
