@@ -1,28 +1,32 @@
 <template>
-  <the-header></the-header>
-  <router-view> </router-view>
-  <transition>
-    <div>
-      <v-snackbar
-        v-model="isSnackbarOpen"
-        :content-class="{
-          snackbar: true,
-          'snackbar--failure': !isSnackbarSuccess,
-        }"
-        rounded="true"
-        location="top"
-      >
-        {{ snackbarMessage }}
-        <span
-          class="text-white text-bold text-uppercase"
-          color="pink"
-          @click="closeSnackbar"
-        >
-          Close
-        </span>
-      </v-snackbar>
-    </div>
-  </transition>
+  <v-app class="app">
+    <the-header></the-header>
+    <v-main class="main">
+      <router-view> </router-view>
+      <transition>
+        <div>
+          <v-snackbar
+            v-model="isSnackbarOpen"
+            :content-class="{
+              snackbar: true,
+              'snackbar--failure': !isSnackbarSuccess,
+            }"
+            rounded="true"
+            location="top"
+          >
+            {{ snackbarMessage }}
+            <span
+              class="text-white text-bold text-uppercase"
+              color="pink"
+              @click="closeSnackbar"
+            >
+              Close
+            </span>
+          </v-snackbar>
+        </div>
+      </transition>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -45,8 +49,19 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 /* Snackbar */
+.app {
+  background-color: #ef6c00;
+  height: 100%;
+  ::v-deep .v-application__wrap {
+    background-color: #ef6c00;
+  }
+}
+.main {
+  margin-top: 24px;
+}
+
 .snackbar div[role="status"] {
   display: flex;
   justify-content: space-between;
