@@ -166,9 +166,10 @@ form {
 
 .button-groups button {
   width: 100%;
-  background-color: #ef6c00;
+  background-color: red;
   text-transform: uppercase;
   color: white;
+  font-weight: bold;
 }
 
 .button-group a {

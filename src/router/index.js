@@ -25,7 +25,7 @@ router.beforeEach(function (to, from, next) {
   const isAuthenticated = store.getters["auth/isAuthenticated"];
   if (to.meta.requiresAuth && !isAuthenticated) {
     next("/auth");
-  } else if (to.meta.requiresUnauth && isAuthenticated) {
+  } else if (to.meta.requiresUnauth && to.fullPath !== "/" && isAuthenticated) {
     next("/");
   } else {
     next();
