@@ -11,12 +11,12 @@
           <input
             class="px-2"
             type="text"
-            placeholder="New Task"
+            placeholder="New resolution"
             v-model.trim="inputValue"
           />
         </div>
         <div class="col-sm-2 px-0">
-          <button @click="addTodo" class="btn btn-primary">ADD</button>
+          <button @click="addTodo" class="btn">ADD</button>
         </div>
       </div>
       <todo-list></todo-list>
@@ -52,6 +52,12 @@ export default {
 <style scoped>
 h1 {
   text-align: center;
+}
+
+.btn {
+  background-color: red;
+  color: white;
+  font-weight: bold;
 }
 
 .text-emphasis {
