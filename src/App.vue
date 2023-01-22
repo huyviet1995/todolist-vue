@@ -1,31 +1,33 @@
 <template>
   <v-app class="app">
-    <the-header></the-header>
-    <v-main class="main">
-      <router-view> </router-view>
-      <transition>
-        <div>
-          <v-snackbar
-            v-model="isSnackbarOpen"
-            :content-class="{
-              snackbar: true,
-              'snackbar--failure': !isSnackbarSuccess,
-            }"
-            rounded="true"
-            location="top"
-          >
-            {{ snackbarMessage }}
-            <span
-              class="text-white text-bold text-uppercase"
-              color="pink"
-              @click="closeSnackbar"
+    <v-card>
+      <the-header></the-header>
+      <v-main class="main">
+        <router-view> </router-view>
+        <transition>
+          <div>
+            <v-snackbar
+              v-model="isSnackbarOpen"
+              :content-class="{
+                snackbar: true,
+                'snackbar--failure': !isSnackbarSuccess,
+              }"
+              rounded="true"
+              location="top"
             >
-              Close
-            </span>
-          </v-snackbar>
-        </div>
-      </transition>
-    </v-main>
+              {{ snackbarMessage }}
+              <span
+                class="text-white text-bold text-uppercase"
+                color="pink"
+                @click="closeSnackbar"
+              >
+                Close
+              </span>
+            </v-snackbar>
+          </div>
+        </transition>
+      </v-main>
+    </v-card>
   </v-app>
 </template>
 
@@ -54,10 +56,14 @@ export default {
 .app {
   background-color: #ef6c00;
   height: 100%;
-  ::v-deep .v-application__wrap {
-    background-color: #ef6c00;
-  }
 }
+
+.v-card {
+  background-color: #ef6c00;
+  height: 100%;
+  z-index: 9999;
+}
+
 .main {
   margin-top: 24px;
 }

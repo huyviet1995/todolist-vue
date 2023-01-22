@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar color="orange-darken-4" class="v-app-bar" mb-3 prominent>
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-    <nav>
+  <v-app-bar color="orange-darken-4" class="v-app-bar" mb-3>
+    <i class="bi bi-list d-sm-none d-block"></i>
+    <nav class="d-sm-flex d-none">
       <router-link to="/">
         {{ todoPageNavLabel }}
       </router-link>
@@ -10,7 +10,7 @@
     </nav>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+  <v-navigation-drawer v-model="drawer" absolute left temporary top="0">
     <v-list nav dense>
       <v-list-item-group
         v-model="group"
@@ -37,7 +37,13 @@ export default {
   data() {
     return {
       drawer: false,
+      group: null,
     };
+  },
+  watch: {
+    group() {
+      this.drawer = false;
+    },
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated", "email"]),
@@ -61,6 +67,21 @@ export default {
 <style scoped>
 header {
   margin-bottom: 32px;
+}
+
+i {
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+header >>> .v-navigation-drawer {
+  height: 100vh;
+  width: 100vw;
+  top: 0 !important;
+  position: absolute;
+  z-index: 9999;
 }
 
 nav {
